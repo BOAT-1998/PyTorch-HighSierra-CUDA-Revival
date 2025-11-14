@@ -1,0 +1,2 @@
+# SHA256 sums for distributed wheels
+# Use: python scripts/validate_whl.py > /dev/null

@@ -1,0 +1,28 @@
+name: Release Pipeline
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  build-validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'
+      - name: Install dev tools
+        run: |
+          pip install -r requirements-dev.txt
+      - name: Validate wheel and collect hashes
+        run: python scripts/validate_whl.py
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: archival-assets
+          path: |
+            archive/
+            environment/
+            docs/

@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "system_specs",
+  "type": "object",
+  "properties": {
+    "timestamp": {"type": "string"},
+    "system": {"type": "object"},
+    "python": {"type": "object"},
+    "torch": {"type": "object"},
+    "cuda": {"type": "object"},
+    "cudnn": {"type": "object"},
+    "gpu": {"type": "object"}
+  },
+  "required": ["timestamp", "system"]
+}

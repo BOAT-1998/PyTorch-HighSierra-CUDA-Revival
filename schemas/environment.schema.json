@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "pip_environment",
+  "type": "object",
+  "properties": {
+    "timestamp": {"type": "string"},
+    "python_version": {"type": "string"},
+    "pytorch_version": {"type": "string"},
+    "cuda_home": {"type": "string"},
+    "cuda_version": {"type": "string"},
+    "cudnn_version": {"type": "string"},
+    "env": {"type": "object"}
+  },
+  "required": ["timestamp", "python_version", "cuda_home", "env"]
+}

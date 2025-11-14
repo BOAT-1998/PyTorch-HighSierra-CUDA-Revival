@@ -1,0 +1,11 @@
+timestamp: ""
+python_version: ""
+pytorch_version: ""
+cuda_home: "/usr/local/cuda"
+cuda_version: ""
+cudnn_version: ""
+env:
+  PATH: ""
+  DYLD_LIBRARY_PATH: ""
+  TORCH_CUDA_ARCH_LIST: ""
+  CUDA_VISIBLE_DEVICES: ""

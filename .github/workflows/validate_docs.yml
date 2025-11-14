@@ -1,0 +1,35 @@
+name: Validate Docs
+on:
+  pull_request:
+  push:
+    branches: [ main ]
+
+jobs:
+  link-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Lychee link check
+        uses: lycheeverse/lychee-action@v1
+        with:
+          args: --verbose --accept 200..399 --no-progress './**/*.md'
+      - name: JSON schema validate environment files
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - run: pip install jsonschema
+      - name: Validate environment JSON
+        run: |
+          python - <<'PY'
+          import json, sys
+          from jsonschema import validate
+          import pathlib
+          env_schema = json.loads(pathlib.Path('schemas/environment.schema.json').read_text())
+          sys_schema = json.loads(pathlib.Path('schemas/system_specs.schema.json').read_text())
+          for p in ['environment/pip_environment.json', 'environment/system_specs.json']:
+              if pathlib.Path(p).exists():
+                  data = json.loads(pathlib.Path(p).read_text())
+                  schema = env_schema if 'pip_environment' in p else sys_schema
+                  validate(instance=data, schema=schema)
+          print('JSON schema validation completed.')
+          PY
